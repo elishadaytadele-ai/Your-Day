@@ -1,0 +1,110 @@
+.sr-only{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
+:root{
+  --bg-dark:#0b0b10;
+  --soft-dark:#0f1720;
+  --accent:#ff5a87;
+  --muted:#cbd5e1;
+  --glass:rgba(255,255,255,0.04);
+  --transition:400ms cubic-bezier(.2,.9,.2,1);
+}
+*{box-sizing:border-box}
+html,body,#app{height:100%}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;color:var(--muted);background:linear-gradient(160deg,var(--bg-dark),#0a0b12);overflow:hidden}
+
+.page{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:48px;transition:opacity var(--transition),transform var(--transition);opacity:0;pointer-events:none}
+.page[aria-hidden="false"]{opacity:1;pointer-events:auto}
+.page .center{max-width:980px;text-align:center}
+.eyebrow{color:rgba(255,255,255,0.6);margin:0 0 12px;font-size:14px}
+.title{font-size:48px;margin:0 0 20px;color:#fff}
+.title .name{display:block;font-weight:600;margin-top:6px;color:var(--accent)}
+
+/* Heart Button */
+.heart-btn{background:linear-gradient(180deg,var(--accent),#ff3b70);border:0;color:#fff;padding:12px 18px;border-radius:999px;display:inline-flex;align-items:center;gap:10px;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,0.3);transition:transform 220ms ease,opacity 220ms ease;opacity:0;transform:translateY(8px) scale(0.98)}
+.heart-btn .icon-heart{width:20px;height:20px;fill:white}
+.heart-btn.large{padding:18px 24px;border-radius:28px;font-size:18px}
+.page-locked .heart-btn.large{opacity:1;transform:none}
+.heart-btn.show{opacity:1;transform:none}
+.heart-btn.pulse{animation:pulse 2s infinite}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
+
+.back-btn{position:fixed;left:18px;top:18px;background:transparent;border:0;color:rgba(255,255,255,0.6);padding:8px;border-radius:6px;opacity:0.7;cursor:pointer;transition:opacity 220ms ease,transform 220ms}
+.back-btn:hover{opacity:1;transform:translateX(-4px)}
+.icon-arrow{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* Cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:20px;max-width:980px;margin:28px auto;padding: 0 16px; /* IMPORTANT for mobile */}
+.card{
+  position: relative; /* 🔥 REQUIRED */
+  perspective:1200px;
+  cursor:pointer;
+  height:220px;
+  border-radius:12px;
+  transform-style: preserve-3d;
+ }
+.card-face{position:absolute;border-radius:12px;backface-visibility:hidden;transition:transform 600ms cubic-bezier(.2,.9,.2,1),opacity 300ms;inset: 0;}
+.card-front{background-size:cover;background-position:center;height:100%;box-shadow:0 10px 30px rgba(0,0,0,0.5)}
+.card-back{position:absolute;inset:0;padding:20px;background:linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.6));color:#fff;transform:rotateY(180deg);display:flex;align-items:center;justify-content:center;text-align:center;font-size:16px}
+.card.flipped .card-front{transform:rotateY(180deg)}
+.card.flipped .card-back{transform:rotateY(0)}
+.cards-instruction{
+  position:relative;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom: 400px;
+  font-size:1.15rem;
+  letter-spacing:0.05em;
+  color:rgba(255,255,255,0.75);
+  text-align:center;
+  isolation: isolate; /* 🔥 IMPORTANT */
+  pointer-events:none; /* CRITICAL */
+  z-index:10;
+  transition:opacity 600ms ease;
+}
+.card-over-hover {
+  position: absolute;
+  top: 38%;               /* slightly above center */
+  left: 50%;              /* REQUIRED */
+  transform: translate(-50%, -50%);
+  bottom: 100px;
+  font-size: 1.15rem;
+  letter-spacing: 0.05em;
+  color: rgba(255,255,255,0.75);
+  text-align: center;
+
+  pointer-events: none;
+  z-index: 10;
+
+  transition: opacity 600ms ease;
+}
+
+/* Video layouts */
+.video-wrap{max-width:1000px;width:100%;padding:20px}
+video{width:100%;height:auto;border-radius:12px;box-shadow:0 20px 50px rgba(0,0,0,0.6)}
+.cinematic{max-height:60vh}
+
+/* Future list */
+.future-list{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:10px;color:#fff}
+.future-list li{background:var(--glass);padding:14px;border-radius:10px}
+
+/* Letter */
+.letter{max-width:720px;background:transparent;color:#fff;font-size:20px;line-height:1.5;text-align:left;border-radius:8px;padding:30px}
+
+.final .final-line{font-size:28px;color:#fff;opacity:0.98}
+
+/* visibility helpers */
+.hidden{display:none!important}
+
+/* responsive tweaks */
+@media (max-width:720px){
+  .title{font-size:28px}
+  .cards{grid-template-columns:1fr}
+  .card{height:180px}
+  .heart-btn{padding:10px 14px}
+}
+
+/* subtle fade-in for controls */
+.controls{position:fixed;bottom:32px;left:0;right:0;display:flex;justify-content:center}
+
+

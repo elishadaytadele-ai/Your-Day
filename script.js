@@ -25,19 +25,16 @@
 			case 1: // photo cards: shown only after user interacts (card click)
 				btn.classList.add('show');
 				break;
-			case 2: // edit video: shown only after video 'ended'
+			case 2: // video message: shown only after video 'ended'
 				btn.classList.add('show');
 				break;
-			case 3: // cinematic video: shown after video engagement (play)
+			case 3: // future: visible immediately
 				btn.classList.add('show');
 				break;
-			case 4: // future: visible immediately
+			case 4: // letter typing: shown after typing finishes
 				btn.classList.add('show');
 				break;
-			case 5: // letter typing: shown after typing finishes
-				btn.classList.add('show');
-				break;
-			case 6: // final: never visible
+			case 5: // final: never visible
 				break;
 			default:
 				break;
@@ -122,6 +119,12 @@
 			c.addEventListener('mouseenter', ()=>{ if(window.matchMedia('(hover: hover)').matches) c.classList.add('flipped'); });
 			c.addEventListener('mouseleave', ()=>{ if(window.matchMedia('(hover: hover)').matches) c.classList.remove('flipped'); });
 		});
+		cardsWrap.addEventListener('wheel', (e)=>{
+			if(Math.abs(e.deltaX) < Math.abs(e.deltaY)){
+				e.preventDefault();
+				cardsWrap.scrollBy({left:e.deltaY, behavior:'smooth'});
+			}
+		});
 	}
 
 	// Page 3 video: show heart after ends
@@ -145,11 +148,11 @@
 		});
 		page4Video.addEventListener('ended', ()=>{
 			try{ bgMusic.play(); }catch(e){}
-			showHeartForPage(3);
+			showHeartForPage(2);
 		});
-		// show heart for page 3 when user engages (plays) the video
+		// show heart for page 2 when user engages (plays) the video
 		page4Video.addEventListener('play', ()=>{
-			showHeartForPage(3);
+			showHeartForPage(2);
 		});
 	}
 
@@ -180,8 +183,8 @@
 						li.style.opacity=0; li.style.transform='translateY(8px)';
 						setTimeout(()=>{ li.style.transition='opacity 400ms ease,transform 400ms'; li.style.opacity=1; li.style.transform='none'; }, 300 + i*180);
 					});
-					// heart for page index 4 should be visible immediately when this page is shown
-					showHeartForPage(4);
+					// heart for page index 3 should be visible immediately when this page is shown
+					showHeartForPage(3);
 				}
 			}
 		});
@@ -197,8 +200,8 @@
 			el.textContent += text[i]||''; i++;
 			if(i>text.length){
 				clearInterval(t);
-				// when typing finishes, deterministically show heart for page 5
-				showHeartForPage(5);
+				// when typing finishes, deterministically show heart for page 4
+				showHeartForPage(4);
 			}
 		}, speed);
 	}

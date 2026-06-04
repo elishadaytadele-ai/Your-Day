@@ -193,12 +193,15 @@
 
 	// Page 6 typing letter
 	const letterEl = document.getElementById('letter');
-	const letterText = "I love the way you make small things important. I love your courage, the warmth you bring, the way you make me feel seen. Today I celebrate you — every little and huge thing that is you."
+	const letterText = "hey my precious princess so this is a letter from the future exactly 10 years from today, and guess what?, we did it we achieved our dreams we bough our dream house and dream cars, they look so beautiful, not more beautiful than you of course, and we have traveled the world together, we went to paris, japan, maldives, and many more places, but i ain't writing you this letter to talk about that i'm here to tell you that we went through a lot there were a lot of up and downs we fought big fights we laughed a lot we cried together ate together got married we didn't turn out like our parents we turned out great we are helping others but most importnat we are together and we still love each other we are happy with our lives we made some bad decisions, some mistakes were made, and a lot was learned but we didn't give up on each other we are still laughing like how we laugh at 6 kilo medaw filefit, i still kiss you with the same passion i still love you and care about you i still have a huge crush on you like i imagine us doing something and i blush (am still such a baby)i still hug you the same if not with more love, i look at you with every once of my heart and soul, remember that i will always love you today, yesterday, tomorrow, and forever and ever with endless overflowing love, i love you my precious baby.";
 	function typeLetter(text, el, speed=28){
-		let i=0; el.textContent='';
+		let i=0;
+		el.textContent='';
 		const t = setInterval(()=>{
-			el.textContent += text[i]||''; i++;
-			if(i>text.length){
+			el.textContent += text[i] || '';
+			i++;
+			el.scrollTop = el.scrollHeight;
+			if(i >= text.length){
 				clearInterval(t);
 				// when typing finishes, deterministically show heart for page 4
 				showHeartForPage(4);
